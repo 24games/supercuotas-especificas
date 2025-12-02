@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24Games - Supercuota Haaland vs Mbappé</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(ellipse at center, #1a1a1a 0%, #050505 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .glassmorphism {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00FF00 0%, #39FF14 50%, #00FF88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .player-photo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .player-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            border: 3px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        .spinning-ring {
+            position: absolute;
+            width: 186px;
+            height: 186px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #00FF00;
+            border-right-color: #39FF14;
+            animation: spin 3s linear infinite;
+            z-index: 1;
+        }
+        
+        .spinning-ring::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-bottom-color: #00FF88;
+            border-left-color: #00FF00;
+            animation: spin-reverse 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes spin-reverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00FF00 0%, #39FF14 100%);
+            color: #000000;
+            font-weight: 700;
+            padding: 18px 40px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #39FF14 0%, #00FF88 100%);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 18px 40px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 2px solid #00FF00;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        
+        .stat-icon {
+            color: #00FF00;
+            font-size: 20px;
+        }
+        
+        .headline-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .headline-word {
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            display: inline-block;
+            margin: 0 0.1em;
+        }
+        
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+        
+        .player-name {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 20px;
+            color: #00FF00;
+        }
+        
+        .card-content {
+            padding: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Headline -->
+    <header class="text-center py-16 px-4">
+        <div class="headline-container">
+            <h1 class="headline-main">
+                <span class="headline-word">¡EL</span>
+                <span class="headline-word gradient-text">DUELO</span>
+                <span class="headline-word">DE</span>
+                <span class="headline-word gradient-text">TITANES</span>
+                <span class="headline-word">YA ESTÁ</span>
+                <span class="headline-word gradient-text">AQUÍ!</span>
+            </h1>
+            <p class="subtitle">LA SUPERCUOTA QUE ESTABAS ESPERANDO</p>
+        </div>
+    </header>
+    
+    <!-- O Duelo - Cards dos Jogadores -->
+    <section class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Card Haaland -->
+            <div class="glassmorphism rounded-2xl card-haaland">
+                <div class="card-content">
+                    <div class="player-photo-container">
+                        <div class="spinning-ring"></div>
+                        <!-- Adicione a foto do Haaland na pasta images/ com o nome: haaland.png -->
+                        <img src="images/haaland.png" alt="Erling Haaland" class="player-photo" onerror="this.src='https://via.placeholder.com/180x180/00FF00/000000?text=HAALAND'">
+                    </div>
+                    <h2 class="player-name">ERLING HAALAND</h2>
+                    <div class="stats-container text-left max-w-xs mx-auto">
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <span>Participación Ofensiva: <strong>92%</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <span>Tiros al Arco: <strong>4.5/partido</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <span>Goles Totales: <strong>28</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card Mbappé -->
+            <div class="glassmorphism rounded-2xl card-mbappe">
+                <div class="card-content">
+                    <div class="player-photo-container">
+                        <div class="spinning-ring"></div>
+                        <!-- Adicione a foto do Mbappé na pasta images/ com o nome: mbappe.png -->
+                        <img src="images/mbappe.png" alt="Kylian Mbappé" class="player-photo" onerror="this.src='https://via.placeholder.com/180x180/00FF00/000000?text=MBAPPE'">
+                    </div>
+                    <h2 class="player-name">KYLIAN MBAPPÉ</h2>
+                    <div class="stats-container text-left max-w-xs mx-auto">
+                        <div class="stat-item">
+                            <span class="stat-icon">🔥</span>
+                            <span>Participación Ofensiva: <strong>95%</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🔥</span>
+                            <span>Tiros al Arco: <strong>3.8/partido</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🔥</span>
+                            <span>Goles Totales: <strong>26</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Call to Action - Botões -->
+    <section class="container mx-auto px-4 py-12 max-w-md">
+        <div class="flex flex-col gap-6 buttons-container">
+            <button class="btn-primary btn-haaland">
+                APOSTAR SUPERCUOTA HAALAND ⚡
+            </button>
+            <button class="btn-secondary btn-mbappe">
+                APOSTAR SUPERCUOTA MBAPPÉ 🔥
+            </button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-black py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600 text-sm">
+                © 2024 24Games. Todos los derechos reservados. Juega con responsabilidad.
+            </p>
+        </div>
+    </footer>
+    
+    <!-- GSAP Animations -->
+    <script>
+        // Aguarda o carregamento completo da página
+        window.addEventListener('load', () => {
+            // Timeline principal
+            const tl = gsap.timeline();
+            
+            // Headline - desce suavemente
+            tl.from('.headline-container', {
+                duration: 1,
+                y: -50,
+                opacity: 0,
+                ease: 'power3.out'
+            });
+            
+            // Cards aparecem um após o outro
+            tl.from('.card-haaland', {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out'
+            }, '-=0.5');
+            
+            tl.from('.card-mbappe', {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out'
+            }, '-=0.6');
+            
+            // Botões sobem por último
+            tl.from('.buttons-container', {
+                duration: 0.8,
+                y: 30,
+                opacity: 0,
+                ease: 'power3.out'
+            }, '-=0.4');
+            
+            // Animação sutil de hover nos cards
+            const cards = document.querySelectorAll('.glassmorphism');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, {
+                        duration: 0.3,
+                        scale: 1.02,
+                        boxShadow: '0 12px 40px 0 rgba(0, 255, 0, 0.2)',
+                        ease: 'power2.out'
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        duration: 0.3,
+                        scale: 1,
+                        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        ease: 'power2.out'
+                    });
+                });
+            });
+        });
+        
+        // Adiciona interatividade aos botões (você pode adicionar links aqui)
+        document.querySelector('.btn-haaland').addEventListener('click', () => {
+            // Adicione aqui o link de aposta do Haaland
+            console.log('Apostar em Haaland');
+        });
+        
+        document.querySelector('.btn-mbappe').addEventListener('click', () => {
+            // Adicione aqui o link de aposta do Mbappé
+            console.log('Apostar em Mbappé');
+        });
+    </script>
+</body>
+</html>
+
