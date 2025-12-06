@@ -8,13 +8,17 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- GSAP CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- React & ReactDOM CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel Standalone para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -25,10 +29,45 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: radial-gradient(ellipse at center, #1a1a1a 0%, #050505 100%);
+            background: #050505;
             color: #ffffff;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+        
+        /* Background Image Placeholder */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        /* Logo Flutuante */
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        
+        .logo-floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
         }
         
         .glassmorphism {
@@ -46,64 +85,19 @@
             background-clip: text;
         }
         
-        .player-photo-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .check-pulse {
+            animation: pulse-glow 2s ease-in-out infinite;
         }
         
-        .player-photo {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            position: relative;
-            z-index: 2;
-            border: 3px solid rgba(0, 255, 0, 0.3);
-        }
-        
-        .player-photo.haaland-photo {
-            object-position: center 40%;
-        }
-        
-        .spinning-ring {
-            position: absolute;
-            width: 186px;
-            height: 186px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            border-top-color: #00FF00;
-            border-right-color: #39FF14;
-            animation: spin 3s linear infinite;
-            z-index: 1;
-        }
-        
-        .spinning-ring::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            border-bottom-color: #00FF88;
-            border-left-color: #00FF00;
-            animation: spin-reverse 2s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes spin-reverse {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
+        @keyframes pulse-glow {
+            0%, 100% {
+                opacity: 1;
+                filter: drop-shadow(0 0 5px #00FF00);
+            }
+            50% {
+                opacity: 0.8;
+                filter: drop-shadow(0 0 15px #00FF00);
+            }
         }
         
         .btn-primary {
@@ -127,242 +121,423 @@
             background: linear-gradient(135deg, #39FF14 0%, #00FF88 100%);
         }
         
-        .btn-secondary {
-            background: transparent;
-            color: #ffffff;
-            font-weight: 700;
-            padding: 18px 40px;
-            border-radius: 12px;
+        .player-card {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             transition: all 0.3s ease;
-            border: 2px solid #00FF00;
             cursor: pointer;
-            font-size: 18px;
-            width: 100%;
-            max-width: 400px;
         }
         
-        .btn-secondary:hover {
-            background: rgba(0, 255, 0, 0.1);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
-            transform: translateY(-2px);
+        .player-card:hover {
+            border-color: #00FF00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+            transform: translateY(-5px);
+        }
+        
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shimmer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        .btn-cta {
+            background: linear-gradient(135deg, #00FF00 0%, #39FF14 100%);
+            color: #000000;
+            font-weight: 700;
+            padding: 20px 50px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: pulse-button 2s ease-in-out infinite;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        @keyframes pulse-button {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 0, 0.8);
+            }
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 255, 0, 0.2);
         }
         
         .stat-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 12px;
-            font-size: 16px;
+            margin-bottom: 16px;
+            font-size: 18px;
         }
         
         .stat-icon {
             color: #00FF00;
-            font-size: 20px;
+            font-size: 24px;
         }
         
         .headline-main {
             font-family: 'Bebas Neue', sans-serif;
             font-weight: 400;
-            line-height: 1.1;
+            line-height: 1.2;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
         
-        .headline-word {
-            font-size: clamp(2.5rem, 7vw, 5.5rem);
-            display: inline-block;
-            margin: 0 0.1em;
-        }
-        
-        .subtitle {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 20px;
-        }
-        
         .player-name {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            margin-bottom: 20px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             color: #00FF00;
         }
         
-        .card-content {
-            padding: 30px;
-            text-align: center;
+        .step-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animações de Transição */
+        .step-enter {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        
+        .step-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .step-exit {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .step-exit-active {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header / Headline -->
-    <header class="text-center py-16 px-4">
-        <div class="headline-container">
-            <h1 class="headline-main">
-                <span class="headline-word">LA</span>
-                <span class="headline-word gradient-text">SUPERCUOTA</span>
-                <span class="headline-word">QUE</span>
-                <span class="headline-word gradient-text">ESTABAS</span>
-                <span class="headline-word gradient-text">ESPERANDO</span>
-            </h1>
-            <p class="subtitle">EL DUELO DE TITANES YA ESTÁ AQUÍ!</p>
-        </div>
-    </header>
+    <!-- TODO: BACKGROUND IMAGE HERE -->
+    <div class="background-image" style="background: radial-gradient(ellipse at center, #1a1a1a 0%, #050505 100%);"></div>
     
-    <!-- O Duelo - Cards dos Jogadores -->
-    <section class="container mx-auto px-4 py-8 max-w-6xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Logo Flutuante -->
+    <div class="logo-container">
+        <!-- TODO: Adicione a logo aqui -->
+        <div class="logo-floating" style="width: 150px; height: 60px; background: rgba(0, 255, 0, 0.1); border: 2px solid #00FF00; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #00FF00; font-weight: bold;">
+            LOGO 24GAMES
+        </div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { render } = ReactDOM;
+        
+        // Dados dos Jogadores
+        const playersData = {
+            haaland: {
+                name: 'ERLING HAALAND',
+                image: 'images/haaland.png',
+                stats: [
+                    { icon: '⚡', label: 'Participación Ofensiva', value: '92%' },
+                    { icon: '⚡', label: 'Tiros al Arco', value: '4.5/partido' },
+                    { icon: '⚡', label: 'Goles Totales', value: '28' }
+                ],
+                link: 'LINK_HAALAND_AQUI' // TODO: Adicione o link real
+            },
+            mbappe: {
+                name: 'KYLIAN MBAPPÉ',
+                image: 'images/mbappe.png',
+                stats: [
+                    { icon: '🔥', label: 'Participación Ofensiva', value: '95%' },
+                    { icon: '🔥', label: 'Tiros al Arco', value: '3.8/partido' },
+                    { icon: '🔥', label: 'Goles Totales', value: '26' }
+                ],
+                link: 'LINK_MBAPPE_AQUI' // TODO: Adicione o link real
+            }
+        };
+        
+        // Componente de Transição
+        const TransitionStep = ({ children, show }) => {
+            const [display, setDisplay] = useState(show);
+            const [animating, setAnimating] = useState(false);
             
-            <!-- Card Haaland -->
-            <div class="glassmorphism rounded-2xl card-haaland">
-                <div class="card-content">
-                    <div class="player-photo-container">
-                        <div class="spinning-ring"></div>
-                        <!-- Adicione a foto do Haaland na pasta images/ com o nome: haaland.png -->
-                        <img src="images/haaland.png" alt="Erling Haaland" class="player-photo haaland-photo" onerror="this.src='https://via.placeholder.com/180x180/00FF00/000000?text=HAALAND'">
+            useEffect(() => {
+                if (show) {
+                    setDisplay(true);
+                    setTimeout(() => setAnimating(true), 10);
+                } else {
+                    setAnimating(false);
+                    setTimeout(() => setDisplay(false), 500);
+                }
+            }, [show]);
+            
+            if (!display) return null;
+            
+            return (
+                <div className={animating ? 'step-enter-active' : 'step-enter'}>
+                    {children}
+                </div>
+            );
+        };
+        
+        // Etapa 0: Hero Section
+        const Step0 = ({ onNext }) => {
+            return (
+                <div className="step-container">
+                    <div className="text-center max-w-4xl mx-auto">
+                        <h1 className="headline-main text-5xl md:text-7xl mb-6">
+                            Acierta quién marcará primero
+                        </h1>
+                        <div className="flex items-center justify-center gap-3 mb-8 flex-wrap">
+                            <p className="subtitle text-xl md:text-2xl text-white">
+                                Y asegura tu Green
+                            </p>
+                            <span className="check-pulse text-3xl">✅</span>
+                        </div>
+                        <button
+                            onClick={onNext}
+                            className="btn-primary mx-auto"
+                        >
+                            ELEGIR JUGADOR
+                        </button>
                     </div>
-                    <h2 class="player-name">ERLING HAALAND</h2>
-                    <div class="stats-container text-left max-w-xs mx-auto">
-                        <div class="stat-item">
-                            <span class="stat-icon">⚡</span>
-                            <span>Participación Ofensiva: <strong>92%</strong></span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-icon">⚡</span>
-                            <span>Tiros al Arco: <strong>4.5/partido</strong></span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-icon">⚡</span>
-                            <span>Goles Totales: <strong>28</strong></span>
+                </div>
+            );
+        };
+        
+        // Etapa 1: Seleção do Jogador
+        const Step1 = ({ onSelect }) => {
+            const [hovered, setHovered] = useState(null);
+            
+            return (
+                <div className="step-container">
+                    <div className="text-center max-w-6xl mx-auto w-full">
+                        <h2 className="headline-main text-3xl md:text-5xl mb-4">
+                            ¿Cuál de los dos máximos goleadores anotará primero?
+                        </h2>
+                        <p className="text-lg md:text-xl text-gray-300 mb-12">
+                            Elige entre Mbappé o Haaland
+                        </p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            <div
+                                onMouseEnter={() => setHovered('mbappe')}
+                                onMouseLeave={() => setHovered(null)}
+                                onClick={() => onSelect('mbappe')}
+                                className={`player-card rounded-2xl p-8 ${hovered === 'mbappe' ? 'scale-105' : ''}`}
+                                style={{ transition: 'all 0.3s ease' }}
+                            >
+                                <div className="mb-6">
+                                    <img
+                                        src={playersData.mbappe.image}
+                                        alt={playersData.mbappe.name}
+                                        className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mx-auto"
+                                        style={{ border: '3px solid #00FF00' }}
+                                        onError={(e) => {
+                                            e.target.src = 'https://via.placeholder.com/160x160/00FF00/000000?text=MBAPPE';
+                                        }}
+                                    />
+                                </div>
+                                <h3 className="player-name mb-4">
+                                    {playersData.mbappe.name}
+                                </h3>
+                            </div>
+                            
+                            <div
+                                onMouseEnter={() => setHovered('haaland')}
+                                onMouseLeave={() => setHovered(null)}
+                                onClick={() => onSelect('haaland')}
+                                className={`player-card rounded-2xl p-8 ${hovered === 'haaland' ? 'scale-105' : ''}`}
+                                style={{ transition: 'all 0.3s ease' }}
+                            >
+                                <div className="mb-6">
+                                    <img
+                                        src={playersData.haaland.image}
+                                        alt={playersData.haaland.name}
+                                        className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mx-auto"
+                                        style={{ border: '3px solid #00FF00', objectPosition: 'center 40%' }}
+                                        onError={(e) => {
+                                            e.target.src = 'https://via.placeholder.com/160x160/00FF00/000000?text=HAALAND';
+                                        }}
+                                    />
+                                </div>
+                                <h3 className="player-name mb-4">
+                                    {playersData.haaland.name}
+                                </h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            );
+        };
+        
+        // Etapa 2: Resultado e Conversão
+        const Step2 = ({ selectedPlayer }) => {
+            const [mounted, setMounted] = useState(false);
+            const player = playersData[selectedPlayer];
             
-            <!-- Card Mbappé -->
-            <div class="glassmorphism rounded-2xl card-mbappe">
-                <div class="card-content">
-                    <div class="player-photo-container">
-                        <div class="spinning-ring"></div>
-                        <!-- Adicione a foto do Mbappé na pasta images/ com o nome: mbappe.png -->
-                        <img src="images/mbappe.png" alt="Kylian Mbappé" class="player-photo" onerror="this.src='https://via.placeholder.com/180x180/00FF00/000000?text=MBAPPE'">
-                    </div>
-                    <h2 class="player-name">KYLIAN MBAPPÉ</h2>
-                    <div class="stats-container text-left max-w-xs mx-auto">
-                        <div class="stat-item">
-                            <span class="stat-icon">🔥</span>
-                            <span>Participación Ofensiva: <strong>95%</strong></span>
+            useEffect(() => {
+                setMounted(true);
+            }, []);
+            
+            return (
+                <div className="step-container">
+                    <div className="text-center max-w-4xl mx-auto w-full">
+                        <h2 className={`headline-main text-4xl md:text-6xl mb-6 gradient-text ${mounted ? 'fade-in-up' : ''}`}>
+                            ¡Excelente elección!
+                        </h2>
+                        <p className={`text-xl md:text-2xl text-gray-300 mb-12 ${mounted ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.1s' }}>
+                            Aquí están las estadísticas de tu jugador
+                        </p>
+                        
+                        <div className={`stat-card rounded-2xl p-8 mb-10 ${mounted ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.2s' }}>
+                            <div className="mb-6">
+                                <img
+                                    src={player.image}
+                                    alt={player.name}
+                                    className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mx-auto"
+                                    style={selectedPlayer === 'haaland' ? { border: '3px solid #00FF00', objectPosition: 'center 40%' } : { border: '3px solid #00FF00' }}
+                                    onError={(e) => {
+                                        e.target.src = selectedPlayer === 'haaland' 
+                                            ? 'https://via.placeholder.com/160x160/00FF00/000000?text=HAALAND'
+                                            : 'https://via.placeholder.com/160x160/00FF00/000000?text=MBAPPE';
+                                    }}
+                                />
+                            </div>
+                            <h3 className="player-name mb-8">{player.name}</h3>
+                            
+                            <div className="max-w-md mx-auto text-left">
+                                {player.stats.map((stat, index) => (
+                                    <div
+                                        key={index}
+                                        className={`stat-item ${mounted ? 'fade-in-up' : ''}`}
+                                        style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+                                    >
+                                        <span className="stat-icon">{stat.icon}</span>
+                                        <span>
+                                            {stat.label}: <strong className="text-green-400">{stat.value}</strong>
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-icon">🔥</span>
-                            <span>Tiros al Arco: <strong>3.8/partido</strong></span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-icon">🔥</span>
-                            <span>Goles Totales: <strong>26</strong></span>
-                        </div>
+                        
+                        <a
+                            href={player.link}
+                            className={`btn-cta shimmer ${mounted ? 'fade-in-up' : ''}`}
+                            style={{ animationDelay: '0.6s' }}
+                        >
+                            ¡RECLAMAR MI SUPERCUOTA!
+                        </a>
                     </div>
                 </div>
-            </div>
-            
-        </div>
-    </section>
-    
-    <!-- Call to Action - Botões -->
-    <section class="container mx-auto px-4 py-12 max-w-md">
-        <div class="flex flex-col gap-6 buttons-container">
-            <button class="btn-primary btn-haaland">
-                APOSTAR SUPERCUOTA HAALAND ⚡
-            </button>
-            <button class="btn-secondary btn-mbappe">
-                APOSTAR SUPERCUOTA MBAPPÉ 🔥
-            </button>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="bg-black py-8 mt-16">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-600 text-sm">
-                © 2024 24Games. Todos los derechos reservados. Juega con responsabilidad.
-            </p>
-        </div>
-    </footer>
-    
-    <!-- GSAP Animations -->
-    <script>
-        // Aguarda o carregamento completo da página
-        window.addEventListener('load', () => {
-            // Timeline principal
-            const tl = gsap.timeline();
-            
-            // Headline - desce suavemente
-            tl.from('.headline-container', {
-                duration: 1,
-                y: -50,
-                opacity: 0,
-                ease: 'power3.out'
-            });
-            
-            // Cards aparecem um após o outro
-            tl.from('.card-haaland', {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                ease: 'power3.out'
-            }, '-=0.5');
-            
-            tl.from('.card-mbappe', {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                ease: 'power3.out'
-            }, '-=0.6');
-            
-            // Botões sobem por último
-            tl.from('.buttons-container', {
-                duration: 0.8,
-                y: 30,
-                opacity: 0,
-                ease: 'power3.out'
-            }, '-=0.4');
-            
-            // Animação sutil de hover nos cards
-            const cards = document.querySelectorAll('.glassmorphism');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    gsap.to(card, {
-                        duration: 0.3,
-                        scale: 1.02,
-                        boxShadow: '0 12px 40px 0 rgba(0, 255, 0, 0.2)',
-                        ease: 'power2.out'
-                    });
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    gsap.to(card, {
-                        duration: 0.3,
-                        scale: 1,
-                        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-                        ease: 'power2.out'
-                    });
-                });
-            });
-        });
+            );
+        };
         
-        // Adiciona interatividade aos botões (você pode adicionar links aqui)
-        document.querySelector('.btn-haaland').addEventListener('click', () => {
-            // Adicione aqui o link de aposta do Haaland
-            console.log('Apostar em Haaland');
-        });
+        // Componente Principal
+        const App = () => {
+            const [currentStep, setCurrentStep] = useState(0);
+            const [selectedPlayer, setSelectedPlayer] = useState(null);
+            const [exiting, setExiting] = useState(false);
+            
+            const handleNext = () => {
+                setExiting(true);
+                setTimeout(() => {
+                    setCurrentStep(1);
+                    setExiting(false);
+                }, 500);
+            };
+            
+            const handleSelectPlayer = (player) => {
+                setExiting(true);
+                setTimeout(() => {
+                    setSelectedPlayer(player);
+                    setCurrentStep(2);
+                    setExiting(false);
+                }, 500);
+            };
+            
+            return (
+                <div className="relative min-h-screen">
+                    <TransitionStep show={currentStep === 0 && !exiting}>
+                        <Step0 onNext={handleNext} />
+                    </TransitionStep>
+                    <TransitionStep show={currentStep === 1 && !exiting}>
+                        <Step1 onSelect={handleSelectPlayer} />
+                    </TransitionStep>
+                    <TransitionStep show={currentStep === 2 && !exiting}>
+                        <Step2 selectedPlayer={selectedPlayer} />
+                    </TransitionStep>
+                </div>
+            );
+        };
         
-        document.querySelector('.btn-mbappe').addEventListener('click', () => {
-            // Adicione aqui o link de aposta do Mbappé
-            console.log('Apostar em Mbappé');
-        });
+        // Renderizar App
+        render(<App />, document.getElementById('root'));
     </script>
 </body>
 </html>
-

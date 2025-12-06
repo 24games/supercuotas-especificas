@@ -8,14 +8,6 @@
       "dest": "/index.html"
     },
     {
-      "src": "/quiz",
-      "dest": "/quiz.html"
-    },
-    {
-      "src": "/quiz.html",
-      "dest": "/quiz.html"
-    },
-    {
       "src": "/(.*\\.(html|png|jpg|jpeg|gif|svg|css|js|txt))",
       "dest": "/$1"
     },
