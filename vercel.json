@@ -1,15 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "quiz.html",
-      "use": "@vercel/static"
-    }
-  ],
+  "buildCommand": null,
+  "outputDirectory": ".",
   "routes": [
     {
       "src": "/",
@@ -24,19 +16,12 @@
       "dest": "/quiz.html"
     },
     {
-      "src": "/(.*)",
+      "src": "/(.*\\.(html|png|jpg|jpeg|gif|svg|css|js|txt))",
       "dest": "/$1"
-    }
-  ],
-  "headers": [
+    },
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
+      "src": "/images/(.*)",
+      "dest": "/images/$1"
     }
   ]
 }
