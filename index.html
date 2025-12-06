@@ -35,7 +35,7 @@
             min-height: 100vh;
         }
         
-        /* Background Image Placeholder */
+        /* Background Image */
         .background-image {
             position: fixed;
             top: 0;
@@ -48,25 +48,30 @@
             background-repeat: no-repeat;
         }
         
-        /* Logo Flutuante */
+        /* Logo Centralizada no Topo */
         .logo-container {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000;
+            z-index: 99999;
+            width: 100%;
+            pointer-events: none;
         }
         
         .logo-floating {
+            max-width: 200px;
+            height: auto;
+            display: block;
             animation: float 3s ease-in-out infinite;
         }
         
         @keyframes float {
             0%, 100% {
-                transform: translateX(-50%) translateY(0px);
+                transform: translateY(0px);
             }
             50% {
-                transform: translateX(-50%) translateY(-10px);
+                transform: translateY(-10px);
             }
         }
         
@@ -235,6 +240,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            padding-top: 100px;
             position: relative;
             z-index: 1;
         }
@@ -279,15 +285,12 @@
     </style>
 </head>
 <body>
-    <!-- TODO: BACKGROUND IMAGE HERE -->
-    <div class="background-image" style="background: radial-gradient(ellipse at center, #1a1a1a 0%, #050505 100%);"></div>
+    <!-- Background Image -->
+    <div class="background-image" style="background-image: url('images/background lp quiz interativo.webp');"></div>
     
-    <!-- Logo Flutuante -->
+    <!-- Logo Centralizada no Topo -->
     <div class="logo-container">
-        <!-- TODO: Adicione a logo aqui -->
-        <div class="logo-floating" style="width: 150px; height: 60px; background: rgba(0, 255, 0, 0.1); border: 2px solid #00FF00; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #00FF00; font-weight: bold;">
-            LOGO 24GAMES
-        </div>
+        <img src="images/supercuota.png" alt="24Games Logo" class="logo-floating" />
     </div>
     
     <div id="root"></div>
@@ -522,7 +525,7 @@
             };
             
             return (
-                <div className="relative min-h-screen">
+                <div className="relative min-h-screen" style={{ zIndex: 1 }}>
                     <TransitionStep show={currentStep === 0 && !exiting}>
                         <Step0 onNext={handleNext} />
                     </TransitionStep>
