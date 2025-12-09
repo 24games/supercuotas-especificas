@@ -327,6 +327,35 @@
         const { useState, useEffect } = React;
         const { render } = ReactDOM;
         
+        // Função para obter o pathname da URL e gerar links dinâmicos
+        const getDynamicLinks = () => {
+            // Obtém o pathname da URL (ex: /cr1, /cr2, etc.)
+            const pathname = window.location.pathname;
+            // Remove a barra inicial e pega o parâmetro
+            const urlParam = pathname.replace(/^\//, '').replace(/\/$/, '');
+            
+            // Links base
+            const baseLinkMbappe = 'https://go.aff.24gamespartners.com/3k6a9qa0?utm_campaign=mbappe_sodd';
+            const baseLinkHaaland = 'https://go.aff.24gamespartners.com/3k6a9qa0?utm_campaign=haaland_sodd';
+            
+            // Se houver um parâmetro na URL (ex: cr1, cr2, etc.), adiciona ao utm_campaign
+            if (urlParam && urlParam !== '' && urlParam !== 'index.html') {
+                return {
+                    mbappe: `${baseLinkMbappe}_${urlParam}`,
+                    haaland: `${baseLinkHaaland}_${urlParam}`
+                };
+            }
+            
+            // Retorna os links padrão se não houver parâmetro
+            return {
+                mbappe: baseLinkMbappe,
+                haaland: baseLinkHaaland
+            };
+        };
+        
+        // Gera os links dinâmicos
+        const dynamicLinks = getDynamicLinks();
+        
         // Dados dos Jogadores
         const playersData = {
             haaland: {
@@ -337,7 +366,7 @@
                     { icon: '⚡', label: 'Tiros al Arco', value: '4.5/partido' },
                     { icon: '⚡', label: 'Goles Totales', value: '28' }
                 ],
-                link: 'LINK_HAALAND_AQUI' // TODO: Adicione o link real
+                link: dynamicLinks.haaland
             },
             mbappe: {
                 name: 'KYLIAN MBAPPÉ',
@@ -347,7 +376,7 @@
                     { icon: '🔥', label: 'Tiros al Arco', value: '3.8/partido' },
                     { icon: '🔥', label: 'Goles Totales', value: '26' }
                 ],
-                link: 'LINK_MBAPPE_AQUI' // TODO: Adicione o link real
+                link: dynamicLinks.mbappe
             }
         };
         
