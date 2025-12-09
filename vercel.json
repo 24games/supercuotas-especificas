@@ -1,12 +1,8 @@
 {
-  "version": 2,
-  "buildCommand": null,
-  "outputDirectory": ".",
   "rewrites": [
     {
-      "source": "/((?!images/|.*\\.(html|png|jpg|jpeg|gif|svg|webp|css|js|txt|bat|json)).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
 }
-
