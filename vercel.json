@@ -4,14 +4,6 @@
   "outputDirectory": ".",
   "rewrites": [
     {
-      "source": "/images/(.*)",
-      "destination": "/images/$1"
-    },
-    {
-      "source": "/(.*\\.(html|png|jpg|jpeg|gif|svg|webp|css|js|txt|bat))",
-      "destination": "/$1"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
