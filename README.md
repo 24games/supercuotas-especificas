@@ -44,3 +44,5 @@ Edite as variáveis `link` no objeto `playersData` no arquivo `quiz.html`:
 - `LINK_HAALAND_AQUI`
 - `LINK_MBAPPE_AQUI`
 
+
+
