@@ -112,6 +112,49 @@
             background-clip: text;
         }
         
+        .highlight-word {
+            background: linear-gradient(135deg, #00FF00 0%, #39FF14 50%, #00FF88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight-word::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00FF00, #39FF14, #00FF88);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+        }
+        
+        .impact-text {
+            text-shadow: 0 0 30px rgba(0, 255, 0, 0.6),
+                         0 0 60px rgba(0, 255, 0, 0.4),
+                         0 0 90px rgba(0, 255, 0, 0.2);
+            letter-spacing: 0.1em;
+        }
+        
+        .subtitle-impact {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0, 255, 0, 0.4);
+            letter-spacing: 0.05em;
+        }
+        
+        @media (min-width: 768px) {
+            .subtitle-impact {
+                font-size: 2rem;
+            }
+        }
+        
         .check-pulse {
             animation: pulse-glow 2s ease-in-out infinite;
         }
@@ -410,12 +453,12 @@
             return (
                 <div className="step-container">
                     <div className="text-center max-w-4xl mx-auto" style={{ marginTop: '20px' }}>
-                        <h1 className="headline-main text-4xl md:text-7xl mb-4 md:mb-6">
-                            Acierta quién marcará primero
+                        <h1 className="headline-main text-4xl md:text-7xl mb-4 md:mb-6 impact-text">
+                            <span className="highlight-word">Acierta</span> quién <span className="highlight-word">marcará primero</span>
                         </h1>
                         <div className="flex items-center justify-center gap-3 mb-6 md:mb-8 flex-wrap">
-                            <p className="subtitle text-lg md:text-2xl text-white">
-                                Y asegura tu Green
+                            <p className="subtitle-impact text-white">
+                                Y asegura tu <span className="highlight-word">Green</span>
                             </p>
                             <span className="check-pulse text-2xl md:text-3xl">✅</span>
                         </div>
@@ -437,11 +480,11 @@
             return (
                 <div className="step-container">
                     <div className="text-center max-w-6xl mx-auto w-full">
-                        <h2 className="headline-main text-3xl md:text-5xl mb-4">
-                            ¿Cuál de los dos máximos goleadores anotará primero?
+                        <h2 className="headline-main text-3xl md:text-5xl mb-4 impact-text">
+                            ¿Cuál de los dos <span className="highlight-word">máximos goleadores</span> <span className="highlight-word">anotará primero</span>?
                         </h2>
-                        <p className="text-lg md:text-xl text-gray-300 mb-12">
-                            Elige entre Mbappé o Haaland
+                        <p className="subtitle-impact text-white mb-12">
+                            Elige entre <span className="highlight-word">Mbappé</span> o <span className="highlight-word">Haaland</span>
                         </p>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -508,11 +551,11 @@
             return (
                 <div className="step-container">
                     <div className="text-center max-w-4xl mx-auto w-full">
-                        <h2 className={`headline-main text-4xl md:text-6xl mb-6 gradient-text ${mounted ? 'fade-in-up' : ''}`}>
-                            ¡Excelente elección!
+                        <h2 className={`headline-main text-4xl md:text-6xl mb-6 impact-text ${mounted ? 'fade-in-up' : ''}`}>
+                            ¡<span className="highlight-word">Excelente</span> <span className="highlight-word">elección</span>!
                         </h2>
-                        <p className={`text-xl md:text-2xl text-gray-300 mb-12 ${mounted ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.1s' }}>
-                            Aquí están las estadísticas de tu jugador
+                        <p className={`subtitle-impact text-white mb-12 ${mounted ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.1s' }}>
+                            Aquí están las <span className="highlight-word">estadísticas</span> de tu jugador
                         </p>
                         
                         <div className={`stat-card rounded-2xl p-8 mb-10 ${mounted ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.2s' }}>

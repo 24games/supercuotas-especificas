@@ -46,3 +46,4 @@ Edite as variáveis `link` no objeto `playersData` no arquivo `quiz.html`:
 
 
 
+
