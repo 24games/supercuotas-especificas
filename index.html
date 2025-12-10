@@ -1,665 +1,74 @@
 <!DOCTYPE html>
-<!-- Deploy trigger: 2025-01-02 15:30:00 URGENT -->
-<html lang="es-CL">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>24Games - Supercuota Haaland vs Mbappé</title>
-    
-    <!-- Meta Pixel Code (Essencial para marcar o PageView) -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1108404008025075');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1108404008025075&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM CDN -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel Standalone para JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #050505;
-            color: #ffffff;
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        /* Background Image */
-        .background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        
-        /* Logo Centralizada no Topo */
-        .logo-container {
-            position: absolute;
-            top: 10px;
-            left: 0;
-            right: 0;
-            z-index: 99999;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-        }
-        
-        @media (min-width: 768px) {
-            .logo-container {
-                top: 15px;
-            }
-        }
-        
-        .logo-floating {
-            max-width: 100px;
-            width: auto;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @media (min-width: 768px) {
-            .logo-container {
-                top: 15px;
-            }
-            .logo-floating {
-                max-width: 140px;
-            }
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .glassmorphism {
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #00FF00 0%, #39FF14 50%, #00FF88 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .highlight-word {
-            background: linear-gradient(135deg, #00FF00 0%, #39FF14 50%, #00FF88 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .highlight-word::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #00FF00, #39FF14, #00FF88);
-            border-radius: 2px;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
-        }
-        
-        .impact-text {
-            text-shadow: 0 0 30px rgba(0, 255, 0, 0.6),
-                         0 0 60px rgba(0, 255, 0, 0.4),
-                         0 0 90px rgba(0, 255, 0, 0.2);
-            letter-spacing: 0.1em;
-        }
-        
-        .subtitle-impact {
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-shadow: 0 2px 10px rgba(0, 255, 0, 0.4);
-            letter-spacing: 0.05em;
-        }
-        
-        @media (min-width: 768px) {
-            .subtitle-impact {
-                font-size: 2rem;
-            }
-        }
-        
-        .check-pulse {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% {
-                opacity: 1;
-                filter: drop-shadow(0 0 5px #00FF00);
-            }
-            50% {
-                opacity: 0.8;
-                filter: drop-shadow(0 0 15px #00FF00);
-            }
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #00FF00 0%, #39FF14 100%);
-            color: #000000;
-            font-weight: 700;
-            padding: 18px 40px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #39FF14 0%, #00FF88 100%);
-        }
-        
-        .player-card {
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .player-card:hover {
-            border-color: #00FF00;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
-            transform: translateY(-5px);
-        }
-        
-        .shimmer {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .shimmer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            animation: shimmer 3s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-        
-        .btn-cta {
-            background: linear-gradient(135deg, #00FF00 0%, #39FF14 100%);
-            color: #000000;
-            font-weight: 700;
-            padding: 20px 50px;
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            position: relative;
-            overflow: hidden;
-            animation: pulse-button 2s ease-in-out infinite;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        @keyframes pulse-button {
-            0%, 100% {
-                box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(0, 255, 0, 0.8);
-            }
-        }
-        
-        .stat-card {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(0, 255, 0, 0.2);
-        }
-        
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            font-size: 18px;
-        }
-        
-        .stat-icon {
-            color: #00FF00;
-            font-size: 24px;
-        }
-        
-        .headline-main {
-            font-family: 'Bebas Neue', sans-serif;
-            font-weight: 400;
-            line-height: 1.2;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        
-        .player-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-weight: 400;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: #00FF00;
-        }
-        
-        .step-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 20px;
-            padding-top: 60px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        @media (min-width: 768px) {
-            .step-container {
-                align-items: center;
-                padding-top: 100px;
-            }
-        }
-        
-        /* Animações de Transição */
-        .step-enter {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-        
-        .step-enter-active {
-            opacity: 1;
-            transform: translateX(0);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        .step-exit {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .step-exit-active {
-            opacity: 0;
-            transform: translateX(-100px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    <title>Supercuota Haaland vs Mbappé</title>
 </head>
 <body>
-    <!-- Background Image -->
-    <div class="background-image" style="background-image: url('images/background lp quiz interativo.webp');"></div>
-    
-    <!-- Logo Centralizada no Topo -->
-    <div class="logo-container">
-        <img src="images/supercuota.png" alt="24Games Logo" class="logo-floating" />
-    </div>
-    
-    <div id="root"></div>
-    
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { render } = ReactDOM;
-        
-        // Função para obter o pathname da URL e gerar links dinâmicos
-        const getDynamicLinks = () => {
-            // Obtém o pathname da URL (ex: /cr1, /cr2, etc.)
-            const pathname = window.location.pathname;
-            // Remove a barra inicial e pega o parâmetro
-            const urlParam = pathname.replace(/^\//, '').replace(/\/$/, '');
+    <script>
+        // Função para gerar o link padrão com UTM baseado na slug do domínio
+        function gerarLinkPadrao(linkBase) {
+            // Pega o hostname (domínio) da página atual
+            const hostname = window.location.hostname;
             
-            // Links base
-            const baseLinkMbappe = 'https://go.aff.24gamespartners.com/3k6a9qa0?utm_campaign=mbappe_sodd';
-            const baseLinkHaaland = 'https://go.aff.24gamespartners.com/3k6a9qa0?utm_campaign=haaland_sodd';
+            // Extrai a slug do domínio (remove www., protocolo, etc)
+            let slug = hostname
+                .replace(/^www\./, '') // Remove www.
+                .toLowerCase();
             
-            // Se houver um parâmetro na URL (ex: cr1, cr2, etc.), adiciona ao utm_campaign
-            if (urlParam && urlParam !== '' && urlParam !== 'index.html') {
-                return {
-                    mbappe: `${baseLinkMbappe}_${urlParam}`,
-                    haaland: `${baseLinkHaaland}_${urlParam}`
-                };
+            // Se for um subdomínio, pega apenas o subdomínio (parte antes do primeiro ponto)
+            // Se não for subdomínio, pega o domínio principal sem a extensão
+            const parts = slug.split('.');
+            if (parts.length > 2) {
+                // É um subdomínio (ex: slug.exemplo.com -> slug)
+                slug = parts[0];
+            } else if (parts.length === 2) {
+                // É um domínio simples (ex: exemplo.com -> exemplo)
+                slug = parts[0];
             }
             
-            // Retorna os links padrão se não houver parâmetro
-            return {
-                mbappe: baseLinkMbappe,
-                haaland: baseLinkHaaland
-            };
-        };
-        
-        // Gera os links dinâmicos
-        const dynamicLinks = getDynamicLinks();
-        
-        // Dados dos Jogadores
-        const playersData = {
-            haaland: {
-                name: 'ERLING HAALAND',
-                image: 'images/haaland.webp',
-                stats: [
-                    { icon: '⚡', label: 'Participación Ofensiva', value: '92%' },
-                    { icon: '⚡', label: 'Tiros al Arco', value: '4.5/partido' },
-                    { icon: '⚡', label: 'Goles Totales', value: '28' }
-                ],
-                link: dynamicLinks.haaland
-            },
-            mbappe: {
-                name: 'KYLIAN MBAPPÉ',
-                image: 'images/mbappe.webp',
-                stats: [
-                    { icon: '🔥', label: 'Participación Ofensiva', value: '95%' },
-                    { icon: '🔥', label: 'Tiros al Arco', value: '3.8/partido' },
-                    { icon: '🔥', label: 'Goles Totales', value: '26' }
-                ],
-                link: dynamicLinks.mbappe
+            // Se não houver slug válida, usa um padrão
+            if (!slug || slug === 'localhost' || slug === '127.0.0.1') {
+                slug = 'default';
             }
-        };
+            
+            // Se não foi passado link base, usa um padrão
+            if (!linkBase) {
+                linkBase = 'https://exemplo.com/landing'; // ALTERE AQUI COM SEU LINK BASE
+            }
+            
+            // Cria um objeto URL para manipular os parâmetros
+            try {
+                const url = new URL(linkBase);
+                
+                // Adiciona/atualiza os parâmetros UTM com a slug no final
+                url.searchParams.set('utm_source', slug);
+                url.searchParams.set('utm_medium', url.searchParams.get('utm_medium') || 'referral');
+                url.searchParams.set('utm_campaign', url.searchParams.get('utm_campaign') || 'supercuota');
+                
+                // GARANTE que o affiliateId seja sempre 503785 (substitui se já existir)
+                url.searchParams.set('affiliateId', '503785');
+                
+                return url.toString();
+            } catch (e) {
+                // Se o link base não for uma URL válida, monta manualmente
+                const separator = linkBase.includes('?') ? '&' : '?';
+                return `${linkBase}${separator}utm_source=${slug}&utm_medium=referral&utm_campaign=supercuota&affiliateId=503785`;
+            }
+        }
         
-        // Componente de Transição
-        const TransitionStep = ({ children, show }) => {
-            const [display, setDisplay] = useState(show);
-            const [animating, setAnimating] = useState(false);
+        // Exemplo de uso: quando a página carregar, você pode usar o link
+        window.addEventListener('DOMContentLoaded', function() {
+            const linkPadrao = gerarLinkPadrao();
+            console.log('Link gerado:', linkPadrao);
             
-            useEffect(() => {
-                if (show) {
-                    setDisplay(true);
-                    setTimeout(() => setAnimating(true), 10);
-                } else {
-                    setAnimating(false);
-                    setTimeout(() => setDisplay(false), 500);
-                }
-            }, [show]);
-            
-            if (!display) return null;
-            
-            return (
-                <div className={animating ? 'step-enter-active' : 'step-enter'}>
-                    {children}
-                </div>
-            );
-        };
+            // Você pode usar esse link em botões, redirecionamentos, etc.
+            // Exemplo: document.getElementById('meuBotao').href = linkPadrao;
+        });
         
-        // Etapa 0: Hero Section
-        const Step0 = ({ onNext }) => {
-            return (
-                <div className="step-container">
-                    <div className="text-center max-w-4xl mx-auto" style={{ marginTop: '20px' }}>
-                        <h1 className="headline-main text-4xl md:text-7xl mb-4 md:mb-6 impact-text">
-                            <span className="highlight-word">Acierta</span> quién <span className="highlight-word">marcará primero</span>
-                        </h1>
-                        <div className="flex items-center justify-center gap-3 mb-6 md:mb-8 flex-wrap">
-                            <p className="subtitle-impact text-white">
-                                Y asegura tu <span className="highlight-word">Green</span>
-                            </p>
-                            <span className="check-pulse text-2xl md:text-3xl">✅</span>
-                        </div>
-                        <button
-                            onClick={onNext}
-                            className="btn-primary mx-auto"
-                        >
-                            ELEGIR JUGADOR
-                        </button>
-                    </div>
-                </div>
-            );
-        };
-        
-        // Etapa 1: Seleção do Jogador
-        const Step1 = ({ onSelect }) => {
-            const [hovered, setHovered] = useState(null);
-            
-            return (
-                <div className="step-container">
-                    <div className="text-center max-w-6xl mx-auto w-full">
-                        <h2 className="headline-main text-3xl md:text-5xl mb-4 impact-text">
-                            ¿Cuál de los dos <span className="highlight-word">máximos goleadores</span> <span className="highlight-word">anotará primero</span>?
-                        </h2>
-                        <p className="subtitle-impact text-white mb-12">
-                            Elige entre <span className="highlight-word">Mbappé</span> o <span className="highlight-word">Haaland</span>
-                        </p>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                            <div
-                                onMouseEnter={() => setHovered('mbappe')}
-                                onMouseLeave={() => setHovered(null)}
-                                onClick={() => onSelect('mbappe')}
-                                className={`player-card rounded-2xl p-8 ${hovered === 'mbappe' ? 'scale-105' : ''}`}
-                                style={{ transition: 'all 0.3s ease' }}
-                            >
-                                <div className="mb-6">
-                                    <img
-                                        src={playersData.mbappe.image}
-                                        alt={playersData.mbappe.name}
-                                        className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mx-auto"
-                                        style={{ border: '3px solid #00FF00' }}
-                                        onError={(e) => {
-                                            e.target.src = 'https://via.placeholder.com/160x160/00FF00/000000?text=MBAPPE';
-                                        }}
-                                    />
-                                </div>
-                                <h3 className="player-name mb-4">
-                                    {playersData.mbappe.name}
-                                </h3>
-                            </div>
-                            
-                            <div
-                                onMouseEnter={() => setHovered('haaland')}
-                                onMouseLeave={() => setHovered(null)}
-                                onClick={() => onSelect('haaland')}
-                                className={`player-card rounded-2xl p-8 ${hovered === 'haaland' ? 'scale-105' : ''}`}
-                                style={{ transition: 'all 0.3s ease' }}
-                            >
-                                <div className="mb-6">
-                                    <img
-                                        src={playersData.haaland.image}
-                                        alt={playersData.haaland.name}
-                                        className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mx-auto"
-                                        style={{ border: '3px solid #00FF00', objectPosition: 'center 40%' }}
-                                        onError={(e) => {
-                                            e.target.src = 'https://via.placeholder.com/160x160/00FF00/000000?text=HAALAND';
-                                        }}
-                                    />
-                                </div>
-                                <h3 className="player-name mb-4">
-                                    {playersData.haaland.name}
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-        
-        // Etapa 2: Resultado e Conversão
-        const Step2 = ({ selectedPlayer }) => {
-            const [mounted, setMounted] = useState(false);
-            const player = playersData[selectedPlayer];
-            
-            useEffect(() => {
-                setMounted(true);
-            }, []);
-            
-            return (
-                <div className="step-container">
-                    <div className="text-center max-w-4xl mx-auto w-full">
-                        <h2 className={`headline-main text-4xl md:text-6xl mb-6 impact-text ${mounted ? 'fade-in-up' : ''}`}>
-                            ¡<span className="highlight-word">Excelente</span> <span className="highlight-word">elección</span>!
-                        </h2>
-                        <p className={`subtitle-impact text-white mb-12 ${mounted ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.1s' }}>
-                            Aquí están las <span className="highlight-word">estadísticas</span> de tu jugador
-                        </p>
-                        
-                        <div className={`stat-card rounded-2xl p-8 mb-10 ${mounted ? 'fade-in-up' : ''}`} style={{ animationDelay: '0.2s' }}>
-                            <div className="mb-6">
-                                <img
-                                    src={player.image}
-                                    alt={player.name}
-                                    className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mx-auto"
-                                    style={selectedPlayer === 'haaland' ? { border: '3px solid #00FF00', objectPosition: 'center 40%' } : { border: '3px solid #00FF00' }}
-                                    onError={(e) => {
-                                        e.target.src = selectedPlayer === 'haaland' 
-                                            ? 'https://via.placeholder.com/160x160/00FF00/000000?text=HAALAND'
-                                            : 'https://via.placeholder.com/160x160/00FF00/000000?text=MBAPPE';
-                                    }}
-                                />
-                            </div>
-                            <h3 className="player-name mb-8">{player.name}</h3>
-                            
-                            <div className="max-w-md mx-auto text-left">
-                                {player.stats.map((stat, index) => (
-                                    <div
-                                        key={index}
-                                        className={`stat-item ${mounted ? 'fade-in-up' : ''}`}
-                                        style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-                                    >
-                                        <span className="stat-icon">{stat.icon}</span>
-                                        <span>
-                                            {stat.label}: <strong className="text-green-400">{stat.value}</strong>
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        
-                        <a
-                            href={player.link}
-                            className={`btn-cta shimmer ${mounted ? 'fade-in-up' : ''}`}
-                            style={{ animationDelay: '0.6s' }}
-                        >
-                            ¡RECLAMAR MI SUPERCUOTA!
-                        </a>
-                    </div>
-                </div>
-            );
-        };
-        
-        // Componente Principal
-        const App = () => {
-            const [currentStep, setCurrentStep] = useState(0);
-            const [selectedPlayer, setSelectedPlayer] = useState(null);
-            const [exiting, setExiting] = useState(false);
-            
-            const handleNext = () => {
-                setExiting(true);
-                setTimeout(() => {
-                    setCurrentStep(1);
-                    setExiting(false);
-                }, 500);
-            };
-            
-            const handleSelectPlayer = (player) => {
-                setExiting(true);
-                setTimeout(() => {
-                    setSelectedPlayer(player);
-                    setCurrentStep(2);
-                    setExiting(false);
-                }, 500);
-            };
-            
-            return (
-                <div className="relative min-h-screen" style={{ zIndex: 1 }}>
-                    <TransitionStep show={currentStep === 0 && !exiting}>
-                        <Step0 onNext={handleNext} />
-                    </TransitionStep>
-                    <TransitionStep show={currentStep === 1 && !exiting}>
-                        <Step1 onSelect={handleSelectPlayer} />
-                    </TransitionStep>
-                    <TransitionStep show={currentStep === 2 && !exiting}>
-                        <Step2 selectedPlayer={selectedPlayer} />
-                    </TransitionStep>
-                </div>
-            );
-        };
-        
-        // Renderizar App
-        render(<App />, document.getElementById('root'));
+        // Exporta a função para uso global
+        window.gerarLinkPadrao = gerarLinkPadrao;
     </script>
 </body>
 </html>
