@@ -406,29 +406,7 @@
                 baseLinkHaaland = `${baseLinkHaaland}_${urlParam}`;
             }
             
-            // GARANTE que o affiliateId seja sempre 503785 (substitui se já existir, adiciona se não existir)
-            // Função auxiliar para garantir o affiliateId correto no lugar certo (não no UTM)
-            const garantirAffiliateId = (link) => {
-                // Remove TODOS os affiliateId existentes (pode ter múltiplos)
-                // Remove tanto &affiliateId=xxx quanto ?affiliateId=xxx
-                link = link.replace(/[&?]affiliateId=[^&]*/g, '');
-                // Também remove se estiver no final sem & depois
-                link = link.replace(/affiliateId=[^&]*$/, '');
-                // Remove & duplicados ou ? duplicados que possam ter ficado
-                link = link.replace(/[&?]{2,}/g, '&');
-                link = link.replace(/\?&/g, '?');
-                link = link.replace(/&$/, '');
-                
-                // Adiciona o affiliateId correto como parâmetro separado (não no UTM)
-                const separator = link.includes('?') ? '&' : '?';
-                return `${link}${separator}affiliateId=503785`;
-            };
-            
-            // Aplica a correção em ambos os links
-            baseLinkMbappe = garantirAffiliateId(baseLinkMbappe);
-            baseLinkHaaland = garantirAffiliateId(baseLinkHaaland);
-            
-            // Retorna os links com affiliateId garantido
+            // Retorna os links (o affiliateId já está correto no link base)
             return {
                 mbappe: baseLinkMbappe,
                 haaland: baseLinkHaaland
