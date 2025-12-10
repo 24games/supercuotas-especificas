@@ -396,11 +396,11 @@
             // Remove a barra inicial e pega o parâmetro
             const urlParam = pathname.replace(/^\//, '').replace(/\/$/, '');
             
-            // Links base
-            let baseLinkMbappe = 'https://go.aff.24gamespartners.com/3k6a9qa0?utm_campaign=mbappe_sodd';
-            let baseLinkHaaland = 'https://go.aff.24gamespartners.com/3k6a9qa0?utm_campaign=haaland_sodd';
+            // Links base (novos links)
+            let baseLinkMbappe = 'https://go.aff.24gamespartners.com/3w15f015?utm_campaing=mbappe_sodd';
+            let baseLinkHaaland = 'https://go.aff.24gamespartners.com/3w15f015?utm_campaing=haaland_sodd';
             
-            // Se houver um parâmetro na URL (ex: cr1, cr2, etc.), adiciona ao utm_campaign
+            // Se houver um parâmetro na URL (ex: cr1, crflex, etc.), adiciona ao final do utm_campaing
             if (urlParam && urlParam !== '' && urlParam !== 'index.html') {
                 baseLinkMbappe = `${baseLinkMbappe}_${urlParam}`;
                 baseLinkHaaland = `${baseLinkHaaland}_${urlParam}`;
